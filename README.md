@@ -19,16 +19,16 @@ Just run the `orb` script considering first argument `SOURCE` path and second ar
 
     sudo ./orb /Volumes/OSX/ /Volumes/BKP-Disk/
 
-## Using default source and destination values as environment variables
+## Using source and destination values as environment variables
 
-Before execute, you need to export the ORB variables.
-`You can just export in shell like the example or export in your `.bashrc`
+Before execution, you need to export the ORB variables.
+You can just export in shell like the example or export in your `.bashrc`
 
     $ export ORB_SOURCE='/Volumes/OSX/'
     $ export ORB_DESTINATION='/Volumes/BKP-Disk/'
 
-After export, you can run `orb` command using the parameter `-E env` that give to sudo the access for environment vars.
+After export, you can run `orb` command using the parameter `-E env` that give sudo the access for environment vars.
 
     $ sudo -E env ./orb
 
-*Hint:* You can export the variables in the root `.bashrc`. With this way, you can run with the command `sudo ./orb` because the exported variable is already accessible from sudo scope.
+**Hint:** You can export the variables in the root `.bashrc`. With this way, you can run with the command `sudo ./orb` because the exported variable is already accessible from sudo scope.
