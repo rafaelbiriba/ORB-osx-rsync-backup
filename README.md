@@ -1,5 +1,5 @@
 # OSX Rsync Backup (ORB)
 
-ORB is a RSync script for backup your entire osx disk.
+ORB is a RSync script for backup your entire osx disk/partition.
 
-You can boot from your backup disk with a proper bootloader.
+You can also boot from your backup disk/partition (Very useful for test or restore functions).
