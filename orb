@@ -8,43 +8,70 @@
 # Created by: Rafael Biriba - biribarj@gmail.com
 # More info: https://github.com/rafaelbiriba/ORB-osx-rsync-backup
 
+# USAGE: (With inline parameters)
+# $ sudo ./orb /Volumes/OSX-Source/ /Volumes/OSX-Destination/
 
-# USAGE using source and destination edited in the file (below)
-# $ ./orb
+# USAGE: (With local environment variables)
+# $ export ORB_SOURCE='/Volumes/OSX-Source/'
+# $ export ORB_DESTINATION='/Volumes/OSX-Destination/'
+# $ sudo -E env ./orb
 
-# USAGE using source and destination as parameter
-# $ ./orb /Volumes/OSX /Volumes/BKP-Disk
+SCRIPT_USAGE="\n
+USAGE: (With inline parameters)
+\n
+$ sudo ./orb /Volumes/OSX-Source/ /Volumes/OSX-Destination/
+\n\n
+USAGE: (With local environment variables)
+\n
+$ export ORB_SOURCE='/Volumes/OSX-Source/'
+\n
+$ export ORB_DESTINATION='/Volumes/OSX-Destination/'
+\n
+$ sudo -E env ./orb
+\n\n"
 
+echo $ORB_SOURCE
 
-# Edit the SOURCE (your current OSX Disk/Partition volume) and DESTINATION (your backup Disk/Partition volume)
-SOURCE="/Volumes/BKP-RSYNC/"
-DESTINATION="/Volumes/BKP-TM/"
-# Or ignore these variables and use ORB inline parameters (and the variables below will be ignored). See github documentation for more info.
+if [ -n "$1" ] && [ -n "$2" ]; then
+  SOURCE=${1%/}
+  DESTINATION=${2%/}
+fi
 
+if [ -n "$ORB_SOURCE" ] && [ -n "$ORB_DESTINATION" ]; then
+  SOURCE=${ORB_SOURCE%/}
+  DESTINATION=${ORB_DESTINATION%/}
+fi
 
-#############################################
-######### Don't edit below this line ########
-#### unless you know what you are doing #####
-#############################################
+if ! [ -n "$SOURCE" ] && ! [ -n "$DESTINATION" ]; then
+  echo -e $SCRIPT_USAGE
+  exit;
+fi
 
-SOURCE=${1:-$SOURCE}
-DESTINATION=${2:-$DESTINATION}
+echo -e "\n"
+echo -e "Starting ORB backup script...\n"
 
 # Make sure only root can run our script
 if [[ $EUID -ne 0 ]]; then
-   echo -e "[ORB] Aborting the sync process: This script must be run as root\n"
+   echo -e "Aborting the sync process: This script must be run as root\n"
    exit;
 fi
 
 if [ ! -r "$SOURCE" ]; then
-    echo -e "[ORB] Aborting the sync process: Source $SOURCE not readable\n"
+    echo -e "Aborting the sync process: Source '$SOURCE/' not readable\n"
     exit;
 fi
 
 if [ ! -w "$DESTINATION" ]; then
-    echo -e "[ORB] Aborting the sync process: Destination $DESTINATION not writeable\n"
+    echo -e "Aborting the sync process: Destination '$DESTINATION/' not writeable\n"
     exit;
 fi
+
+echo -e "Check the selected folders:"
+echo -e "Source folder: $SOURCE/"
+echo -e "Destinantion folder: $DESTINATION/"
+echo -e "Waiting 5 seconds before continue. [Control+C] to cancel the execution if something is wrong..."
+sleep 5
+echo -e "Executing..."
 
 rsync  --acls \
        --archive \
@@ -78,8 +105,8 @@ rsync  --acls \
        --exclude '/tmp/*' \
        --exclude '/Volumes/*' \
        --exclude '*/.Trash' \
-       "$SOURCE" "$DESTINATION"
+       "$SOURCE"/ "$DESTINATION"/
 
-bless --folder "${DESTINATION%/}"/System/Library/CoreServices
+bless --folder "$DESTINATION"/System/Library/CoreServices
 
 exit 0
