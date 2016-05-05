@@ -54,6 +54,14 @@ sudo rsync --acls \
            --sparse \
            --verbose \
            --xattrs \
+           --times \
+           --crtimes \
+           --human-readable \
+           --progress \
+           --perms \
+           --executability \
+           --owner \
+           --group  \
            --exclude '.Spotlight-*' \
            --exclude '.Trashes' \
            --exclude '/afs/*' \
