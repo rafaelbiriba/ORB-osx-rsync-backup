@@ -1,0 +1,39 @@
+#!/bin/bash
+
+# OSX Rsync Backup (ORB)
+#
+# ORB is a RSync script for backup your entire osx disk/partition.
+# You can also boot from your backup disk/partition (Very useful for test or restore functions).
+#
+# Created by: Rafael Biriba - biribarj@gmail.com
+# More info: https://github.com/rafaelbiriba/ORB-osx-rsync-backup
+
+SOURCE="/Volumes/BKP-RSYNC/"
+
+DESTINATION="/Volumes/BKP-TM/"
+
+
+#############################################
+######### Don't edit below this line ########
+#### unless you know what you are doing #####
+#############################################
+
+SOURCE=${1:-$SOURCE}
+DESTINATION=${2:-$DESTINATION}
+
+# Ask for sudo password before continue
+sudo -v
+
+sudo rsync --acls \
+           --archive \
+           --delete \
+           --delete-excluded \
+           --exclude-from=$EXCLUDE \
+           --hard-links \
+           --one-file-system \
+           --sparse \
+           --verbose \
+           --xattrs \
+           "$SOURCE" "$DESTINATION"
+
+exit 0
