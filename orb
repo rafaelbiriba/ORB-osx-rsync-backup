@@ -2,7 +2,7 @@
 
 # OSX Rsync Backup (ORB)
 #
-# ORB is a RSync script for backup your entire osx disk/partition.
+# ORB is a RSync script to backup your entire osx disk/partition.
 # You can also boot from your backup disk/partition (Very useful for test or restore functions).
 #
 # Created by: Rafael Biriba - biribarj@gmail.com
@@ -37,12 +37,12 @@ if [[ $EUID -ne 0 ]]; then
 fi
 
 if [ ! -r "$SOURCE" ]; then
-    echo "[ORB] Aborting the sync process: Source $SOURCE not readable"
+    echo -e "[ORB] Aborting the sync process: Source $SOURCE not readable\n"
     exit;
 fi
 
 if [ ! -w "$DESTINATION" ]; then
-    echo "[ORB] Aborting the sync process: Destination $DESTINATION not writeable"
+    echo -e "[ORB] Aborting the sync process: Destination $DESTINATION not writeable\n"
     exit;
 fi
 
