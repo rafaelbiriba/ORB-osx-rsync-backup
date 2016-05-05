@@ -28,12 +28,26 @@ sudo rsync --acls \
            --archive \
            --delete \
            --delete-excluded \
-           --exclude-from=$EXCLUDE \
            --hard-links \
            --one-file-system \
            --sparse \
            --verbose \
            --xattrs \
+           --exclude '.Spotlight-*' \
+           --exclude '.Trashes' \
+           --exclude '/afs/*' \
+           --exclude '/automount/*' \
+           --exclude '/cores/*' \
+           --exclude '/dev/*' \
+           --exclude '/Network/*' \
+           --exclude '/private/tmp/*' \
+           --exclude '/private/var/run/*' \
+           --exclude '/private/var/spool/postfix/*' \
+           --exclude '/private/var/vm/*' \
+           --exclude '/Previous Systems.localized' \
+           --exclude '/tmp/*' \
+           --exclude '/Volumes/*' \
+           --exclude '*/.Trash' \
            "$SOURCE" "$DESTINATION"
 
 exit 0
