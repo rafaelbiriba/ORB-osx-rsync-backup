@@ -32,8 +32,11 @@ DESTINATION="/Volumes/BKP-TM/"
 SOURCE=${1:-$SOURCE}
 DESTINATION=${2:-$DESTINATION}
 
-# Ask for sudo password before continue
-sudo -v
+# Make sure only root can run our script
+if [[ $EUID -ne 0 ]]; then
+   echo -e "[ORB] Aborting the sync process: This script must be run as root\n"
+   exit;
+fi
 
 if [ ! -r "$SOURCE" ]; then
     echo "[ORB] Aborting the sync process: Source $SOURCE not readable"
