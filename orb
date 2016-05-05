@@ -79,4 +79,6 @@ sudo rsync --acls \
            --exclude '*/.Trash' \
            "$SOURCE" "$DESTINATION"
 
+sudo bless --folder "$DESTINATION"/System/Library/CoreServices
+
 exit 0
