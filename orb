@@ -35,6 +35,16 @@ DESTINATION=${2:-$DESTINATION}
 # Ask for sudo password before continue
 sudo -v
 
+if [ ! -r "$SOURCE" ]; then
+    echo "[ORB] Aborting the sync process: Source $SOURCE not readable"
+    exit;
+fi
+
+if [ ! -w "$DESTINATION" ]; then
+    echo "[ORB] Aborting the sync process: Destination $DESTINATION not writeable"
+    exit;
+fi
+
 sudo rsync --acls \
            --archive \
            --delete \
