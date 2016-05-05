@@ -8,6 +8,17 @@
 # Created by: Rafael Biriba - biribarj@gmail.com
 # More info: https://github.com/rafaelbiriba/ORB-osx-rsync-backup
 
+
+# USAGE using source and destination edited in the file (below)
+# $ ./orb
+
+# USAGE using source and destination as parameter
+# $ ./orb /Volumes/OSX /Volumes/BKP-Disk
+
+
+# Edit the SOURCE (your current OSX Disk/Partition volume) and DESTINATION (your backup Disk/Partition volume)
+# Or use ORB inline parameters (and the variables below will be ignored). See github documentation for more info.
+
 SOURCE="/Volumes/BKP-RSYNC/"
 
 DESTINATION="/Volumes/BKP-TM/"
