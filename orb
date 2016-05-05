@@ -17,11 +17,9 @@
 
 
 # Edit the SOURCE (your current OSX Disk/Partition volume) and DESTINATION (your backup Disk/Partition volume)
-# Or use ORB inline parameters (and the variables below will be ignored). See github documentation for more info.
-
-SOURCE="/Volumes/BKP-RSYNC/"
-
-DESTINATION="/Volumes/BKP-TM/"
+SOURCE="/Volumes/BKP-RSYNC"
+DESTINATION="/Volumes/BKP-TM"
+# Or ignore these variables and use ORB inline parameters (and the variables below will be ignored). See github documentation for more info.
 
 
 #############################################
@@ -80,8 +78,8 @@ sudo rsync --acls \
            --exclude '/tmp/*' \
            --exclude '/Volumes/*' \
            --exclude '*/.Trash' \
-           "$SOURCE" "$DESTINATION"
+       "${SOURCE%/}" "${DESTINATION%/}"
 
-sudo bless --folder "$DESTINATION"/System/Library/CoreServices
+bless --folder "${DESTINATION%/}"/System/Library/CoreServices
 
 exit 0
