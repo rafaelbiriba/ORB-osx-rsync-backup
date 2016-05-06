@@ -30,8 +30,6 @@ $ export ORB_DESTINATION='/Volumes/OSX-Destination/'
 $ sudo -E env ./orb
 \n\n"
 
-echo $ORB_SOURCE
-
 if [ -n "$1" ] && [ -n "$2" ]; then
   SOURCE=${1%/}
   DESTINATION=${2%/}
@@ -50,7 +48,7 @@ fi
 echo -e "\n"
 echo -e "Starting ORB backup script...\n"
 
-# Make sure only root can run our script
+# Make sure only root can run the script
 if [[ $EUID -ne 0 ]]; then
    echo -e "Aborting the sync process: This script must be run as root\n"
    exit;
